@@ -30,9 +30,19 @@ services:
       - GPHOTOS_CDP_ARGS=  # additional arguments to pass to gphotos-cdp
 ```
 
-Clone this repo and use ./doauth.sh to create and authenticated profile dir and ./test.sh to test that it works. Or use ./test.sh to do your initial sync.
+## Initial authentication
+
+Clone this repo and use ./doauth.sh to create an authenticated profile dir. Follow the instructions in the terminal to complete authentication. It will create a profile directory at ./profile or whatever the PROFILE_DIR env var is set to.
+
+Run ./test.sh to test that it works. You can let ./test.sh complete for your initial sync. 
+
+These scripts must be run with the same user as PUID/PGID is set for in docker-compose.yml.
+
+## Notes 
 
 Files deleted on Google Photos after being downloaded will not be deleted locally, but a list of such files will be saved to `.removed`.
+
+Each synced item will be downloaded to its own subfolder in your download directory. This folder may contain multiple items in case of live photos, edited photos, etc. If you delete this folder or its contents, it will be downloaded again at the next run.
 
 ## Downloading an album
 
