@@ -7,7 +7,7 @@ services:
       # context: https://github.com/spraot/gphotos-sync.git#{FULL_GIT_HASH}
       # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
       args:
-        - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
+        # - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
         - PUID=${PUID}
         - PGID=${PGID}
     container_name: gphotos-sync
