@@ -32,11 +32,17 @@ services:
 
 ## Initial authentication
 
-Clone this repo and use ./doauth.sh to create an authenticated profile dir. Follow the instructions in the terminal to complete authentication. It will create a profile directory at ./profile or whatever the PROFILE_DIR env var is set to.
+Clone this repo and use 
 
-Run ./test.sh to test that it works. You can let ./test.sh complete for your initial sync. 
+    make auth
 
-These scripts must be run with the same user as PUID/PGID is set for in docker-compose.yml.
+to create an authenticated profile dir. Follow the instructions in the terminal to complete authentication. It will create a `profile` directory in your current folder
+
+Run 
+
+    make test
+
+to test that it works. You can let it complete for your initial sync.
 
 ## Notes 
 
