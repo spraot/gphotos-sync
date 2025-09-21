@@ -25,7 +25,7 @@ auth:
 
 .PHONY: build
 build:
-	${DOCKER_COMPOSE} build gphotos-sync
+	${DOCKER_COMPOSE} build
 
 .PHONY: test
 test: build
