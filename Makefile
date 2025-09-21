@@ -29,4 +29,4 @@ build:
 
 .PHONY: test
 test: build
-	${DOCKER_COMPOSE} run --rm -f docker-compose.yml -f docker-compose.test.yml gphotos-sync
+	${DOCKER_COMPOSE} -f docker-compose.yml -f docker-compose.test.yml run --rm gphotos-sync
