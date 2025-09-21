@@ -12,9 +12,7 @@ export PGID=$(shell id -g)
 auth:
 	mkdir -p ${PROFILE_DIR}
 	mkdir -p ${PHOTOS_DIR}
-	cd auth
-	PUID=${PUID} PGID=${PGID} ${DOCKER_COMPOSE} up -d --build
-
+	${DOCKER_COMPOSE} up -d --build auth
 	echo "giving VNC time to be ready, please wait..."
 	sleep 2
 

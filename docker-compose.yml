@@ -25,3 +25,16 @@ services:
       - LOGLEVEL=info
       - TZ=Europe/Rome
       - ALBUMS=ALL
+
+  auth:
+    build:
+      context: auth
+    restart: never
+    ports:
+      - "6080:80"
+    volumes:
+      - ./profile:/profile
+      - ./auth/desktop:/home/abc/Desktop
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
