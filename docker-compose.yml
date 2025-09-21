@@ -7,9 +7,9 @@ services:
       # context: https://github.com/spraot/gphotos-sync.git#{FULL_GIT_HASH}
       # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
       args:
-        - GPHOTOS_CDP_VERSION: github.com/spraot/gphotos-cdp@COMMITISH
-        - PUID: ${PUID}
-        - PGID: ${PGID}
+        - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
+        - PUID=${PUID}
+        - PGID=${PGID}
     container_name: gphotos-sync
     restart: unless-stopped
     privileged: true # chrome seems to need this to run as 1000:1000
@@ -17,11 +17,11 @@ services:
       - ./profile:/tmp/gphotos-cdp
       - ./photos:/download
     environment:
-      - PUID: ${PUID}
-      - PGID: ${PGID}
-      - CRON_SCHEDULE: 27 * * * *
-      - RESTART_SCHEDULE: 26 1 * * 0
-      - HEALTHCHECK_ID: xyz # optional - create one from https://healthchecks.io/
-      - LOGLEVEL: info
-      - TZ: Europe/Rome
-      - ALBUMS: ALL
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - CRON_SCHEDULE=27 * * * *
+      - RESTART_SCHEDULE=26 1 * * 0
+      - HEALTHCHECK_ID=xyz # optional - create one from https://healthchecks.io/
+      - LOGLEVEL=info
+      - TZ=Europe/Rome
+      - ALBUMS=ALL
