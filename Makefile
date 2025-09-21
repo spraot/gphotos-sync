@@ -25,8 +25,8 @@ auth:
 
 .PHONY: build
 build:
-	${DOCKER_COMPOSE} build
+	${DOCKER_COMPOSE} build gphotos-sync
 
 .PHONY: test
 test: build
-	${DOCKER_COMPOSE} run --rm -f docker-compose.yml -f docker-compose.test.yml
+	${DOCKER_COMPOSE} run --rm -f docker-compose.yml -f docker-compose.test.yml gphotos-sync
