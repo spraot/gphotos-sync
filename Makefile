@@ -1,3 +1,5 @@
+PROFILE_DIR := profile
+PHOTOS_DIR := photos
 DOCKER_COMPOSE := $(shell command -v docker-compose 2> /dev/null)
 ifndef DOCKER_COMPOSE
     DOCKER_COMPOSE := docker compose
@@ -9,6 +11,7 @@ export PGID=$(shell id -g)
 .ONESHELL:
 auth:
 	mkdir -p ${PROFILE_DIR}
+	mkdir -p ${PHOTOS_DIR}
 	cd auth
 	PUID=${PUID} PGID=${PGID} ${DOCKER_COMPOSE} up -d --build
 
