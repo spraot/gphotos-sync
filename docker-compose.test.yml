@@ -1,0 +1,3 @@
+services:
+  gphotos-sync:
+    command: no-cron
