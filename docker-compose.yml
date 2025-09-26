@@ -1,5 +1,7 @@
 services:
   gphotos-sync:
+    env_file:
+      - .env
     image: gphotos-sync:latest
     build:
       context: .
@@ -19,12 +21,12 @@ services:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - CRON_SCHEDULE=27 * * * *
-      - RESTART_SCHEDULE=26 1 * * 0
-      - HEALTHCHECK_ID=xyz # optional - create one from https://healthchecks.io/
+      - CRON_SCHEDULE=${CRON_SCHEDULE:-27 * * * *}
+      - RESTART_SCHEDULE=${RESTART_SCHEDULE:-26 1 * * 0}
       - LOGLEVEL=info
-      - TZ=Europe/Rome
       - ALBUMS=ALL
+      - TZ=${TZ:-Europe/Berlin}
+      - HEALTHCHECK_ID=${HEALTHCHECK_ID:-xyz} # optional - create one from https://healthchecks.io/
 
   auth:
     build:
