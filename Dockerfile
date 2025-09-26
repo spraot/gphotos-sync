@@ -1,6 +1,6 @@
 FROM golang:1.24-bookworm AS build
 
-ENV DEFAULT_GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@4f83e4d9
+ENV DEFAULT_GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@2fe62df6
 ENV GO111MODULE=on
 
 ARG GPHOTOS_CDP_VERSION=$DEFAULT_GPHOTOS_CDP_VERSION
