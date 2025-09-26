@@ -1,42 +1,20 @@
 Inspired by / based on https://github.com/JakeWharton/docker-gphotos-sync (thanks Jake!)
 
-Example docker compose definition:
-
-```yaml
-services:
-  gphotos-sync:
-    build:
-      context: https://github.com/spraot/gphotos-sync.git
-      # I recommend using a specific commit instead though:
-      # context: https://github.com/spraot/gphotos-sync.git#{FULL_GIT_HASH}
-      # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
-      # args:
-      #   - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
-    container_name: gphotos-sync
-    restart: unless-stopped
-    privileged: true # chrome seems to need this to run as 1000:1000
-    volumes:
-      - ./profile:/tmp/gphotos-cdp
-      - ./photos:/download
-    environment:
-      - PUID=1000  # Set to the current user's uid
-      - PGID=1000  # Set to the current user's gid
-      - CRON_SCHEDULE=27 * * * *
-      - RESTART_SCHEDULE=26 1 * * 0
-      - HEALTHCHECK_ID=d6e4a333-ce52-4129-9d3e-6722c3333333
-      - LOGLEVEL=info
-      - TZ=Europe/Berlin
-      - ALBUMS=  # comma separated list of album IDs to sync
-      - GPHOTOS_CDP_ARGS=  # additional arguments to pass to gphotos-cdp
-```
-
 ## Initial authentication
 
-Clone this repo and use 
+Clone this repo and make sure to have `docker` and `make` installed, then use 
 
     make auth
 
 to create an authenticated profile dir. Follow the instructions in the terminal to complete authentication. It will create a `profile` directory in your current folder
+
+After that you can customize the following parameters in .env
+
+    TZ=Europe/Berlin # timezone
+    CRON_SCHEDULE=27 * * * *
+    RESTART_SCHEDULE=26 1 * * 0
+    HEALTHCHECK_ID=d6e4a333-ce52-4129-9d3e-6722c3333333 # from healthcheck.io
+    ALBUMS=ALL
 
 Run 
 
@@ -60,7 +38,7 @@ https://photos.google.com/album/{ALBUM_ID}
 
 You can provide just the album ID for normal albums, or the whole relative path in case of other types of albums (e.g. `shared/<SHARED_ALBUM_ID>`). To sync albums and the entire library, add "ALL" to the list of albums.
 
-## Legacy mode
+## Legacy mode (not available anymore)
 
 Setting `GPHOTOS_CDP_ARGS=-legacy` will cause the sync to run in "legacy" mode. This mode is *much* slower at scanning through your entire library, but is much faster at doing the initial synchronization (where all files need to be downloaded). Thus using -legacy for the initial synchronization can be helpful. Switching between regular and legacy mode can be done at any time.
 
