@@ -1,0 +1,43 @@
+services:
+  gphotos-sync:
+    env_file:
+      - .env
+    image: gphotos-sync:latest
+    build:
+      context: .
+      args:
+        - PUID=${PUID:-1000}
+        - PGID=${PGID:-1000}
+        # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
+        # - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
+    container_name: gphotos-sync
+    restart: unless-stopped
+    privileged: true # chrome seems to need this to run as 1000:1000
+    volumes:
+      - ./profile:/tmp/gphotos-cdp
+      - ./photos:/download
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - CRON_SCHEDULE=${CRON_SCHEDULE:-27 * * * *}
+      - RESTART_SCHEDULE=${RESTART_SCHEDULE:-26 1 * * 0}
+      - LOGLEVEL=info
+      - ALBUMS=ALL
+      - TZ=${TZ:-Europe/Berlin}
+      - HEALTHCHECK_ID=${HEALTHCHECK_ID:-xyz} # optional - create one from https://healthchecks.io/
+
+  auth:
+    build:
+      context: auth
+      args:
+        - PUID=${PUID:-1000}
+        - PGID=${PGID:-1000}
+    restart: never
+    ports:
+      - "6080:80"
+    volumes:
+      - ./profile:/profile
+      - ./auth/desktop:/home/abc/Desktop
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}

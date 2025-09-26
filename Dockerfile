@@ -22,7 +22,8 @@ ENV \
     WORKER_COUNT=6 \
     GPHOTOS_CDP_ARGS=
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -30,8 +31,7 @@ RUN apt-get update && apt-get install -y \
         exiftool \
         jq \
         wget \
-        sudo \
-    --no-install-recommends && \
+        sudo && \
     wget https://dl.google.com/linux/direct/$CHROME_PACKAGE && \
     apt install -y ./$CHROME_PACKAGE && \
     rm ./$CHROME_PACKAGE && \
