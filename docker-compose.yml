@@ -5,13 +5,11 @@ services:
     image: gphotos-sync:latest
     build:
       context: .
-      # I recommend using a specific commit instead though:
-      # context: https://github.com/spraot/gphotos-sync.git#{FULL_GIT_HASH}
-      # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
       args:
+        - PUID=${PUID:-1000}
+        - PGID=${PGID:-1000}
+        # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
         # - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
-        - PUID=${PUID}
-        - PGID=${PGID}
     container_name: gphotos-sync
     restart: unless-stopped
     privileged: true # chrome seems to need this to run as 1000:1000
@@ -31,6 +29,9 @@ services:
   auth:
     build:
       context: auth
+      args:
+        - PUID=${PUID:-1000}
+        - PGID=${PGID:-1000}
     restart: never
     ports:
       - "6080:80"
