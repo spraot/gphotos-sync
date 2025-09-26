@@ -3,8 +3,8 @@ FROM dorowu/ubuntu-desktop-lxde-vnc
 # Setup environment variables
 ENV HOME=/home/abc \
     USER=abc \
-    PGID=1000 \
     PUID=1000 \
+    PGID=1000 \
     CHROME_PACKAGE=google-chrome-stable_current_amd64.deb
 
 RUN \
