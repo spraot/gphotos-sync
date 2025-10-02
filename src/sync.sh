@@ -10,8 +10,8 @@ fi
 
 set -e
 
-PROFILE_DIR="${PROFILE_DIR:-/tmp/gphotos-cdp}"
-DOWNLOAD_DIR="${DOWNLOAD_DIR:-/download}"
+PROFILE_DIR=/profile
+DOWNLOAD_DIR=/download
 WORKER_COUNT=${WORKER_COUNT:-6}
 LOGLEVEL=${LOGLEVEL:-info}
 GPHOTOS_CDP_ARGS="-profile \"$PROFILE_DIR\" -headless -json -loglevel $LOGLEVEL -removed -workers $WORKER_COUNT $GPHOTOS_CDP_ARGS -run /app/postdl.sh"

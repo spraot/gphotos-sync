@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# setup proper permissions
+chmod -R a+rwx /profile
+chmod -R a+rwx /download
+
 source /app/log.sh
 
 pidof cron && (echo "cron is already running" && exit 1)
@@ -8,8 +12,8 @@ set -e
 
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 * * * *}
 
-PUID=${PUID:-1001}
-PGID=${PGID:-1001}
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
 
 id abc 2>/dev/null || (
 addgroup abc --gid "${PGID}" --quiet
@@ -18,7 +22,7 @@ adduser abc --uid "${PUID}" --gid "${PGID}" --disabled-password --gecos "" --qui
 
 info "running with user uid: $(id -u abc) and user gid: $(id -g abc)"
 
-chown abc:abc /app
+chown -R abc:abc /app
 
 if [[ "$1" == 'no-cron' ]]; then
     sudo -E -u abc sh /app/sync.sh
