@@ -1,0 +1,39 @@
+services:
+  gphotos-sync:
+    env_file:
+      - .env
+    image: quay.io/nicolabeghin/gphotos-sync:latest
+    build:
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+      context: .
+      # args:
+        # Optionally override the version of gphotos-cdp to use (requires rebuilding the docker image):
+        # - GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@COMMITISH
+    container_name: gphotos-sync
+    restart: unless-stopped
+    privileged: true # chrome seems to need this to run as 1000:1000
+    volumes:
+      - ./profile:/profile
+      - ./photos:/download
+    environment:
+      - CRON_SCHEDULE=${CRON_SCHEDULE:-27 * * * *}
+      - RESTART_SCHEDULE=${RESTART_SCHEDULE:-26 1 * * 0}
+      - LOGLEVEL=info
+      - ALBUMS=ALL
+      - TZ=${TZ:-Europe/Berlin}
+      - HEALTHCHECK_ID=${HEALTHCHECK_ID:-xyz} # optional - create one from https://healthchecks.io/
+
+  auth:
+    image: nicolabeghin/gphotos-sync:auth-latest
+    build:
+      context: .
+      dockerfile: auth/Dockerfile
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    ports:
+      - "6080:80"
+    volumes:
+      - ./profile:/profile

@@ -1,0 +1,5 @@
+services:
+  gphotos-sync:
+    command: no-cron
+    environment:
+      - WORKER_COUNT=1
