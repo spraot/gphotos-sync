@@ -1,4 +1,4 @@
-FROM golang:1.24-bookworm AS build
+FROM golang:1.25-bookworm AS build
 
 ENV DEFAULT_GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@2fe62df6
 ENV GO111MODULE=on
