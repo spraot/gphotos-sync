@@ -1,4 +1,4 @@
-FROM golang:1.25-bookworm AS build
+FROM golang:1.25-trixie AS build
 
 ENV DEFAULT_GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@2fe62df6
 ENV GO111MODULE=on
@@ -6,7 +6,7 @@ ENV GO111MODULE=on
 ARG GPHOTOS_CDP_VERSION=$DEFAULT_GPHOTOS_CDP_VERSION
 RUN go install $GPHOTOS_CDP_VERSION
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 ENV \
     LANG=C.UTF-8 \
