@@ -1,6 +1,6 @@
 FROM golang:1.25-trixie AS build
 
-ENV DEFAULT_GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@049ce4d6
+ENV DEFAULT_GPHOTOS_CDP_VERSION=github.com/spraot/gphotos-cdp@d12df766
 ENV GO111MODULE=on
 
 ARG GPHOTOS_CDP_VERSION=$DEFAULT_GPHOTOS_CDP_VERSION
